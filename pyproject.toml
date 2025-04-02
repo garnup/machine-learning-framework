@@ -1,0 +1,24 @@
+[project]
+name = "machine-learning-framework"
+version = "0.1.0"
+description = "A machine-learning framework for convenient data analysis."
+authors = [
+    {name = "Grey Arnup",email = "garnup@gmail.com"}
+]
+license = {text = "GNU GPL"}
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pandas (>=2.2.3,<3.0.0)",
+    "seaborn (>=0.13.2,<0.14.0)",
+    "pytest (>=8.3.5,<9.0.0)",
+    "keras (>=3.9.0,<4.0.0)",
+    "scikit-learn (>=1.6.1,<2.0.0)",
+    "matplotlib (>=3.10.1,<4.0.0)",
+    "pytest-cov (>=6.0.0,<7.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
