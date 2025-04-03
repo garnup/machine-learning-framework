@@ -16,6 +16,8 @@ page = st.sidebar.radio("Go to:", ["Upload CSV", "Visualization", "Classificatio
 if page == "Upload CSV":
     st.title("Machine Learning Framework App")
     st.write("A generic machine-learning framework for convenient data analysis.")
+    st.write("Upload a CSV file to get started. Example format:")
+    st.write(pd.DataFrame({'Column1': [1, 2], 'Column2': ['A', 'B']}))
 
     # File uploader
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
@@ -31,15 +33,17 @@ if page == "Upload CSV":
 
         # Display basic data analysis options
         st.write("## Data Preprocessing")
-        if st.button("Describe Data"):
-            st.write(st.session_state.analyzer.describe())
+        with st.expander("Describe Data"):
+            if st.button("Describe Data"):
+                st.write(st.session_state.analyzer.describe())
 
-        if st.button("Drop Missing Data"):
-            analyzer = st.session_state.analyzer
-            analyzer.drop_missing_data()
-            st.write("Missing data dropped.")
-            st.write(analyzer.df)
-            st.session_state.analyzer = analyzer
+        with st.expander("Drop Missing Data"):
+            if st.button("Drop Missing Data"):
+                analyzer = st.session_state.analyzer
+                analyzer.drop_missing_data()
+                st.write("Missing data dropped.")
+                st.write(analyzer.df)
+                st.session_state.analyzer = analyzer
 
         cols_to_drop = st.multiselect("Select columns to drop", st.session_state.analyzer.df.columns)
         if st.button("Drop Columns"):
@@ -123,6 +127,14 @@ elif page == "Visualization":
     if st.button("Box Plot"):
         boxplot = sns.boxplot(analyzer.df[target_columns])
         st.pyplot(boxplot.get_figure())
+
+    # Scatter plot of selected columns
+    x_column = st.selectbox("Select scatterplot x column", analyzer.df.columns)
+    y_column = st.selectbox("Select scatterplot y column", analyzer.df.columns)
+    if st.button("Scatter Plot"):
+        scatterplot = sns.scatterplot(x=analyzer.df[x_column], y=analyzer.df[y_column])
+        st.pyplot(scatterplot.get_figure())
+
 
 elif page == "Classification Analysis":
     # Classification options
