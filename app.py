@@ -131,8 +131,9 @@ elif page == "Visualization":
     # Scatter plot of selected columns
     x_column = st.selectbox("Select scatterplot x column", analyzer.df.columns)
     y_column = st.selectbox("Select scatterplot y column", analyzer.df.columns)
+    hue_column = st.selectbox("Select hue column", analyzer.df.columns)
     if st.button("Scatter Plot"):
-        scatterplot = sns.scatterplot(x=analyzer.df[x_column], y=analyzer.df[y_column])
+        scatterplot = sns.scatterplot(x=analyzer.df[x_column], y=analyzer.df[y_column], hue=analyzer.df[hue_column])
         st.pyplot(scatterplot.get_figure())
 
 
