@@ -1,0 +1,18 @@
+FROM python:3.13
+
+WORKDIR /app
+
+# Copy only the dependency files first to leverage Docker caching
+COPY requirements.txt /app/
+
+# Install dependencies using pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application files
+COPY . /app
+
+# Expose Streamlit's default port
+EXPOSE 8501
+
+# Use Streamlit to run the application
+CMD ["streamlit", "run", "main.py", "--server.port=8501", "--server.address=0.0.0.0"]
