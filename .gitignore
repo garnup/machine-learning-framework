@@ -1,0 +1,4 @@
+data/
+.venv/
+code_launch
+__pycache__
